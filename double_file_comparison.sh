@@ -9,10 +9,16 @@ filter_files() {
 clean_typescript() {
     local file="$1"
 
-    # Extragem secțiunile relevante
-    grep -E '^[-d]' "$file" > /tmp/ls_data
-    grep '/dev/sda2' "$file" > /tmp/df_data
+    # Eliminăm codurile de culoare și alte secvențe de escape
+    sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$file" > /tmp/cleaned_typescript
+
+    # Extragem fișierele și directoarele
+    grep -E '^[-d]' /tmp/cleaned_typescript > /tmp/ls_data
+
+    # Extragem informațiile despre utilizarea discului
+    grep '/dev/sda2' /tmp/cleaned_typescript > /tmp/df_data
 }
+
 
 # Funcție pentru curățarea valorilor de unități (G, M, K)
 clean_disk_value() {
