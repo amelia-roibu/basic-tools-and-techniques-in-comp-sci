@@ -6,6 +6,14 @@ if [[ $# -lt 1 || $# -gt 2 ]]; then
     exit 1
 fi
 
+# Verificăm dacă fișierele oferite ca parametri există
+for file in "$@"; do
+    if [[ ! -f "$file" ]]; then
+        echo "Fișierul '$file' nu există."
+        exit 1
+    fi
+done
+
 # Dacă avem un singur fișier typescript
 if [[ $# -eq 1 ]]; then
     ./single_file_comparison.sh "$1"

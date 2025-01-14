@@ -1,8 +1,8 @@
 #!/bin/bash
 
 filter_files() {
-    # Exclude fișierele sursa.sh și typescriptX
-    grep -vE '(sursa\.sh|typescript[0-9]+)'
+    # Exclude fișierele .sh și typescriptX
+    grep -vE '(main\.sh|single_file_comparison\.sh|double_file_comparison\.sh|typescript[0-9]+)'
 }
 
 # Funcție pentru curățarea fișierului typescript
@@ -64,7 +64,7 @@ file2="$2"
     if (( $(echo "$disk_diff > 0.01" | bc -l) )); then
         echo "Diferență în utilizarea spațiului pe disc: +${disk_diff}GB"
     elif (( $(echo "$disk_diff < -0.01" | bc -l) )); then
-        echo "Diferență în utilizarea spațiului pe disc: ${disk_diff}GB (scădere)"
+        echo "Diferență în utilizarea spațiului pe disc: ${disk_diff}GB"
     else
         echo "Nu există modificări semnificative în utilizarea spațiului pe disc."
     fi
